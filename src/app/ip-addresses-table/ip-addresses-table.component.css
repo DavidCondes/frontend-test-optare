@@ -1,0 +1,4 @@
+.table-v-responsive {
+    max-height: 60%;
+    overflow-y: auto;
+}

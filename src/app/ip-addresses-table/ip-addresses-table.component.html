@@ -1,0 +1,88 @@
+
+<div class="table-responsive table-v-responsive">
+    <table class="table table-dark table-hover table-sm table-bordered ">
+        <thead>
+            <tr>
+                <th>IP</th>
+                <th>Tipo</th>
+                <th>Continente</th>
+                <th>País</th>
+                <th>Región</th>
+                <th>Ciudad</th>
+                <th>Organización</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ipAddress of ipAddresses">
+                <td>{{ipAddress.ip}}</td>
+                <td>{{ipAddress.type}}</td>
+                <td>{{ipAddress.continent}}</td>
+                <td>{{ipAddress.country}}</td>
+                <td>{{ipAddress.region}}</td>
+                <td>{{ipAddress.city}}</td>
+                <td>{{ipAddress.org}}</td>
+                <td>{{ipAddress.longitude}}</td>
+                <td>{{ipAddress.latitude}}</td>
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <button (click)="deleteIpAddress(ipAddress.id)" type="button" class="btn btn-danger actn-btn">Eliminar</button>
+                        <button (click)="openMap(ipAddress.latitude, ipAddress.longitude, ipAddress.ip)" type="button" class="btn btn-warning actn-btn">Mapa</button>
+                    </div>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" id="modalDelete" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Notificación</h5>
+          <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>El registro se elimino correctamente!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" data-bs-dismiss="modal">Regresar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal" id="modalMaps" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ubicación</h5>
+          <button type="button" class="btn-close" (click)="closeMap()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <google-map height="500px"
+                width="100%"
+                [center]="center"
+                [zoom]="zoom"
+                (mapClick)="moveMap($event)"
+                (mapMousemove)="move($event)">
+
+                <map-marker [position]="center"
+                            [title]="ipAddressSelected"
+                >
+                </map-marker>
+                    
+            </google-map>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeMap()" data-bs-dismiss="modal">Regresar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+

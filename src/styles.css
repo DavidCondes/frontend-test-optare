@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+* {
+    font-family: 'Roboto Mono', monospace;
+    text-transform: uppercase;
+}
+
+body{
+    background-color: #35374B !important;
+}
+
+.actn-btn {
+    display: block;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    width: 70%;
+}

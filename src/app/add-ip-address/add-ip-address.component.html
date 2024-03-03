@@ -1,0 +1,73 @@
+
+<div class="top-inputs">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="inputIpAddress" class="col-form-label">Dirección IP > </label>
+            </div>
+            <div class="col-auto">
+                <input  class="form-control" type="text" id="inputIpAddress" formControlName="ipAddress" placeholder="Ingresa la IP">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal" id="exampleModal" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dirección IP</h5>
+          <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <p><strong><u>{{responseService?.message}}</u></strong></p>
+            <table *ngIf="ipInfo" class="table">
+                <tr>
+                    <th>IP</th>
+                    <td>{{ipInfo.ip}}</td>
+                </tr>
+                <tr>
+                    <th>Tipo</th>
+                    <td>{{ipInfo.type}}</td>
+                </tr>
+                <tr>
+                    <th>Continente</th>
+                    <td>{{ipInfo.continent}}</td>
+                </tr>
+                <tr>
+                    <th>País</th>
+                    <td>{{ipInfo.country}}</td>
+                </tr>
+                <tr>
+                    <th>Región</th>
+                    <td>{{ipInfo.region}}</td>
+                </tr>
+                <tr>
+                    <th>Ciudad</th>
+                    <td>{{ipInfo.city}}</td>
+                </tr>
+                <tr>
+                    <th>Organización</th>
+                    <td>{{ipInfo.org}}</td>
+                </tr>
+                <tr>
+                    <th>Latitud</th>
+                    <td>{{ipInfo.latitude}}</td>
+                </tr>
+                <tr>
+                    <th>Longitud</th>
+                    <td>{{ipInfo.longitude}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" data-bs-dismiss="modal">Regresar</button>
+        </div>
+      </div>
+    </div>
+  </div>
