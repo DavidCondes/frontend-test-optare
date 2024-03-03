@@ -1,3 +1,18 @@
+<div class="top-form">
+  <form [formGroup]="form" (ngSubmit)="search()">
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <input  class="form-control" type="text" id="inputIpAddress" formControlName="ipAddress" placeholder="X.X.X.X">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-info" type="submit">Buscar</button>
+        </div>
+        <div class="col-auto">
+          <button (click)="refresh()"  class="btn btn-secondary" type="button">Mostrar todo</button>
+      </div>
+    </div>
+</form>
+</div>
 
 <div class="table-responsive table-v-responsive">
     <table class="table table-dark table-hover table-sm table-bordered ">
@@ -43,16 +58,33 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Notificación</h5>
-          <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" (click)="closeModal('modalDelete')" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <p>El registro se elimino correctamente!</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeModal()" data-bs-dismiss="modal">Regresar</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal('modalDelete')" data-bs-dismiss="modal">Regresar</button>
         </div>
       </div>
     </div>
+</div>
+
+<div class="modal" id="modalAlert" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notificación</h5>
+        <button type="button" class="btn-close" (click)="closeModal('modalAlert')" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p>El registro no se encuentra en la base de datos!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal('modalAlert')" data-bs-dismiss="modal">Regresar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal" id="modalMaps" aria-labelledby="exampleModalLabel">
@@ -60,7 +92,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ubicación</h5>
-          <button type="button" class="btn-close" (click)="closeMap()" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" (click)="closeModal('modalMaps')" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <google-map height="500px"
@@ -78,7 +110,7 @@
             </google-map>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeMap()" data-bs-dismiss="modal">Regresar</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal('modalMaps')" data-bs-dismiss="modal">Regresar</button>
         </div>
       </div>
     </div>

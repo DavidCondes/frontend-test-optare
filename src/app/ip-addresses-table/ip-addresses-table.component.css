@@ -2,3 +2,12 @@
     max-height: 60%;
     overflow-y: auto;
 }
+
+.top-form{
+    display: flex;
+    justify-content: flex-end;
+    border: 0.5px solid #ccc;
+    padding: 10px;
+    background-color: #212529;
+
+}

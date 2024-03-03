@@ -60,4 +60,11 @@ export class IpAddressService {
                           }));
   }
 
+  searchByIp(ip: string){
+    let params = new HttpParams().set('ip', ip);
+
+    return this.httpClient.get(this.url + "get-by-ip", {params: params});
+
+  }
+
 }

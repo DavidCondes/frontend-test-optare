@@ -4,18 +4,19 @@ import { IpAddressService } from '../services/ip-address.service';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps'
 import { OnInit } from '@angular/core';
 import { IpAddressModel } from '../models/ipAddress.model';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-ip-addresses-table',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule],
+  imports: [CommonModule, GoogleMapsModule, ReactiveFormsModule],
   templateUrl: './ip-addresses-table.component.html',
   styleUrl: './ip-addresses-table.component.css'
 })
 export class IpAddressesTableComponent{
   
-
+  form!: FormGroup;
   ipAddresses:any;
   ipAddressSelected: string = "0.0.0.0";
 
@@ -33,6 +34,10 @@ export class IpAddressesTableComponent{
   
 
   ngOnInit(){
+    this.form = new FormGroup({
+      ipAddress: new FormControl('')
+    });
+
     this.service.getAllIpAddresses()
       .subscribe(response => {
         this.ipAddresses = response;
@@ -42,7 +47,6 @@ export class IpAddressesTableComponent{
   }
 
   deleteIpAddress(id: Int32Array){
-    console.log(id);
     this.service.deleteIpAddress(id)
         .subscribe(response => {
           if(response.success){
@@ -58,13 +62,35 @@ export class IpAddressesTableComponent{
     }
   }
 
-  closeModal(): void{
-    const modal = document.getElementById('modalDelete');
+  closeModal(modalId: string): void{
+    const modal = document.getElementById(modalId);
     if(modal != null){
       modal.style.display = 'none';
     }
+    
+    if(modalId == 'modalDelete'){
+      this.refresh();
+    }
+    
+  }
 
-    this.refresh();
+  search(): void{
+    this.service.searchByIp(this.form.value.ipAddress)
+                .subscribe(response => {
+                  if(Object.keys(response).length > 0){
+                    this.ipAddresses = response;
+                  }else{
+                    this.openAlert();
+                    this.form.get('ipAddress')?.reset('');
+                  }
+                });
+  }
+
+  openAlert(): void{
+    const modal = document.getElementById('modalAlert');
+    if(modal != null){
+      modal.style.display = 'block';
+    }
   }
 
   refresh(): void {
@@ -81,13 +107,6 @@ export class IpAddressesTableComponent{
     const modal = document.getElementById('modalMaps');
     if(modal != null){
       modal.style.display = 'block';
-    }
-  }
-
-  closeMap(): void{
-    const modal = document.getElementById('modalMaps');
-    if(modal != null){
-      modal.style.display = 'none';
     }
   }
   
